@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GameHub Login</title>
+  <title>GameHub</title>
   <style>
     body { 
       font-family: Arial; 
@@ -12,8 +12,9 @@
       display: flex; 
       justify-content: center; 
       align-items: center; 
-      height: 100vh; 
+      min-height: 100vh; 
       margin: 0; 
+      padding: 20px;
     }
     .box { 
       background: #1e293b; 
@@ -50,6 +51,8 @@
       cursor: pointer; 
     }
     button:hover { background: #0ea5e9; }
+    .admin-btn { background: #f59e0b !important; }
+    .admin-btn:hover { background: #d97706 !important; }
     .link { 
       text-align: center; 
       margin-top: 15px; 
@@ -62,7 +65,16 @@
       margin: 10px 0; 
       font-size: 14px; 
     }
-    #userInfo { text-align: center; }
+    #userInfo { text-align: center; margin-bottom: 20px; }
+    .badge {
+      background: #f59e0b;
+      color: #0f172a;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-left: 8px;
+    }
   </style>
 </head>
 <body>
@@ -79,6 +91,7 @@
   <div class="box" id="userBox" style="display:none;">
     <h2>Karibu GameHub!</h2>
     <div id="userInfo"></div>
+    <button id="adminBtn" class="admin-btn" style="display:none;">Fungua Admin Panel</button>
     <button id="logoutBtn">Toka</button>
     <p style="text-align:center;margin-top:20px;color:#94a3b8;">Games zinakuja hapa...</p>
   </div>
@@ -96,6 +109,9 @@
       appId: "1:645807432349:web:75e5613e0cf4fd61b32a74"
     };
 
+    // EMAIL YAKO YA ADMIN IPO HAPA
+    const ADMIN_EMAIL = "vanhokidy@gmail.com";
+
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
@@ -109,6 +125,7 @@
     const errorDiv = document.getElementById('error');
     const userInfo = document.getElementById('userInfo');
     const logoutBtn = document.getElementById('logoutBtn');
+    const adminBtn = document.getElementById('adminBtn');
 
     let isLogin = true;
 
@@ -135,11 +152,23 @@
 
     logoutBtn.onclick = () => signOut(auth);
 
+    adminBtn.onclick = () => {
+      alert('Admin Panel inakuja! Hapa utaweza kuongeza games, kuona users wote, na kufuta accounts.');
+    };
+
     onAuthStateChanged(auth, (user) => {
       if (user) {
         authBox.style.display = 'none';
         userBox.style.display = 'block';
-        userInfo.innerHTML = `Umeingia kama: <br><b>${user.email}</b>`;
+        
+        if (user.email === ADMIN_EMAIL) {
+          userInfo.innerHTML = `Umeingia kama: <br><b>${user.email}</b> <span class="badge">ADMIN</span>`;
+          adminBtn.style.display = 'block';
+        } else {
+          userInfo.innerHTML = `Umeingia kama: <br><b>${user.email}</b>`;
+          adminBtn.style.display = 'none';
+        }
+        
       } else {
         authBox.style.display = 'block';
         userBox.style.display = 'none';
