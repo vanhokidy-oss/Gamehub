@@ -35,28 +35,48 @@ function countDownload(gameName) {
 </script>
     <p>Games za bure, download sasa</p>
 
-    <div class="game">
-        <h3>Minecraft PE</h3>
-        <p>Adventure - 200MB</p>
-        <a href="#" class="btn">Download APK</a>
-    </div>
+    <<!-- GAME 1: EFL 3 - Tsh 1500 -->
+<div class="game">
+  <h3>EFL 3</h3>
+  <p>Football - 800MB</p>
+  <p style="color: #4CAF50; font-weight: bold; font-size: 18px;">Bei: Tsh 1,500</p>
+  <button class="btn" onclick="nunuaGame('EFL 3', 1500, 'WEKA-LINK-YA-EFL-3-HAPA')">💰 Nunua Sasa</button>
+</div>
 
-    <div class="game">
-        <h3>Among Us</h3>
-        <p>Multiplayer - 150MB</p>
-        <a href="#" class="btn">Download APK</a>
-    </div>
+<!-- GAME 2: MINECRAFT - Tsh 1000 -->
+<div class="game">
+  <h3>Minecraft PE</h3>
+  <p>Adventure - 200MB</p>
+  <p style="color: #4CAF50; font-weight: bold; font-size: 18px;">Bei: Tsh 1,000</p>
+  <button class="btn" onclick="nunuaGame('Minecraft PE', 1000, 'WEKA-LINK-YA-MINECRAFT-HAPA')">💰 Nunua Sasa</button>
+</div>
 
-    <div class="game">
-        <h3>PUBG Mobile Lite</h3>
-        <p>Battle Royale - 600MB</p>
-        <a href="#" class="btn">Download APK</a>
-    </div>
+<!-- GAME 3: AMONG US - Tsh 1000 -->
+<div class="game">
+  <h3>Among Us</h3>
+  <p>Multiplayer - 150MB</p>
+  <p style="color: #4CAF50; font-weight: bold; font-size: 18px;">Bei: Tsh 1,000</p>
+  <button class="btn" onclick="nunuaGame('Among Us', 1000, 'WEKA-LINK-YA-AMONGUS-HAPA')">💰 Nunua Sasa</button>
+</div>
 <!-- GAMES ZINAISHIA HAPA -->
 <script>
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/Gamehub/sw.js');
   }
+</script>
+        <script>
+// TAARIFA ZAKO ZA M-PESA
+const NAMBA_YA_MPESA = "0758079464";
+const JINA_LA_MPESA = "REHEMA JUMANNE SHOMALI";
+const WHATSAPP_NUMBER = "255758079464";
+
+function nunuaGame(jinaLaGame, bei, downloadLink) {
+    const ujumbe = `🔥 GAMEHUB ORDER 🔥\n\nNinataka kununua:\nGame: ${jinaLaGame}\nBei: Tsh ${bei}\n\n💰 LIPA KWA M-PESA:\nNamba: ${NAMBA_YA_MPESA}\nJina: ${JINA_LA_MPESA}\nKumbukumbu: ${jinaLaGame}\n\nBaada ya kulipa, nambie "NIMELIPA" hapa WhatsApp na screenshot.`;
+    
+    alert(`LIPA Tsh ${bei} KWA:\n\nM-PESA: ${NAMBA_YA_MPESA}\nJina: ${JINA_LA_MPESA}\nKumbuKumbu: ${jinaLaGame}\n\nBaada ya kulipa bonyeza OK uende WhatsApp`);
+    
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(ujumbe)}`, '_blank');
+}
 </script>
 </body>
 </html>
