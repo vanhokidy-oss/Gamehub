@@ -1,113 +1,152 @@
 <!DOCTYPE html>
-<html>
+<html lang="sw">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameHub</title>
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#667eea">
-    <style>
-        body{background:#0f172a;color:#fff;font-family:system-ui;text-align:center;padding:40px}
-        h1{color:#38bdf8;font-size:32px}
-        .game{background:#1e293b;padding:20px;border-radius:12px;margin:15px auto;max-width:400px}
-        .btn{background:#38bdf8;color:#0f172a;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:600;display:inline-block;margin-top:10px}
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GameHub Login</title>
+  <style>
+    body { 
+      font-family: Arial; 
+      background: #0f172a; 
+      color: white; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      height: 100vh; 
+      margin: 0; 
+    }
+    .box { 
+      background: #1e293b; 
+      padding: 30px; 
+      border-radius: 12px; 
+      width: 90%; 
+      max-width: 400px; 
+      box-shadow: 0 0 20px rgba(0,0,0,0.5); 
+    }
+    h2 { 
+      text-align: center; 
+      margin-bottom: 20px; 
+      color: #38bdf8; 
+    }
+    input { 
+      width: 100%; 
+      padding: 12px; 
+      margin: 8px 0; 
+      border: none; 
+      border-radius: 8px; 
+      background: #334155; 
+      color: white; 
+      box-sizing: border-box; 
+    }
+    button { 
+      width: 100%; 
+      padding: 12px; 
+      margin: 8px 0; 
+      border: none; 
+      border-radius: 8px; 
+      background: #38bdf8; 
+      color: #0f172a; 
+      font-weight: bold; 
+      cursor: pointer; 
+    }
+    button:hover { background: #0ea5e9; }
+    .link { 
+      text-align: center; 
+      margin-top: 15px; 
+      color: #94a3b8; 
+      cursor: pointer; 
+    }
+    #error { 
+      color: #f87171; 
+      text-align: center; 
+      margin: 10px 0; 
+      font-size: 14px; 
+    }
+    #userInfo { text-align: center; }
+  </style>
 </head>
 <body>
-    <h1 onclick="secretAdmin()" style="cursor: pointer; user-select: none;">GameHub</h1>
 
-<script>
-let adminClicks = 0;
-function secretAdmin() {
-    adminClicks++;
-    if(adminClicks >= 5) {
-        window.location.href = 'admin.html';
-        adminClicks = 0;
-    }
-    // Reset kama hujamaliza clicks ndani ya sekunde 2
-    setTimeout(() => { adminClicks = 0 }, 2000);
-}
-
-// Hii ni ya kuhesabu downloads - usifute
-function countDownload(gameName) {
-  fetch(`https://api.countapi.xyz/hit/vanhokidy/${gameName}`).catch(e => {});
-}
-</script>
-    <p>Games za bure, download sasa</p>
-<div class="games" id="gamesList">
-  <!-- GAME 1: EFL 25 -->
-  <div class="game">
-    <img src="efl25.jpg" alt="EFL 25">
-    <h3>EFL 25 Mod FIFA</h3>
-    <p>Football - 1.2GB - New Kits</p>
-    <p style="color: #4CAF50; font-weight: bold; font-size: 18px;">Bei: Tsh 2,000</p>
-    <button class="btn" onclick="nunuaGame('EFL 25', 2000, 'WEKA-LINK-YA-EFL25-HAPA')">💰 Nunua Sasa</button>
+  <div class="box" id="authBox">
+    <h2 id="formTitle">Ingia GameHub</h2>
+    <div id="error"></div>
+    <input type="email" id="email" placeholder="Email yako">
+    <input type="password" id="password" placeholder="Password">
+    <button id="authBtn">Ingia</button>
+    <div class="link" id="toggleForm">Huna account? Jisajili</div>
   </div>
 
-  <!-- GAME 2: GTA SAN ANDREAS -->
-  <div class="game">
-    <img src="gta.jpg" alt="GTA San Andreas">
-    <h3>GTA San Andreas</h3>
-    <p>Action - 2.5GB - Mod Menu</p>
-    <p style="color: #4CAF50; font-weight: bold; font-size: 18px;">Bei: Tsh 3,000</p>
-    <button class="btn" onclick="nunuaGame('GTA SA', 3000, 'WEKA-LINK-YA-GTA-HAPA')">💰 Nunua Sasa</button>
+  <div class="box" id="userBox" style="display:none;">
+    <h2>Karibu GameHub!</h2>
+    <div id="userInfo"></div>
+    <button id="logoutBtn">Toka</button>
+    <p style="text-align:center;margin-top:20px;color:#94a3b8;">Games zinakuja hapa...</p>
   </div>
 
-  <!-- GAME 3: MINECRAFT PE -->
-  <div class="game">
-    <img src="minecraft.jpg" alt="Minecraft PE">
-    <h3>Minecraft PE 1.21</h3>
-    <p>Adventure - 250MB - Latest</p>
-    <p style="color: #4CAF50; font-weight: bold; font-size: 18px;">Bei: Tsh 1,500</p>
-    <button class="btn" onclick="nunuaGame('Minecraft PE', 1500, 'WEKA-LINK-YA-MINECRAFT-HAPA')">💰 Nunua Sasa</button>
-  </div>
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 
-  <!-- GAME 4: DREAM LEAGUE SOCCER -->
-  <div class="game">
-    <img src="dls.jpg" alt="DLS 24">
-    <h3>DLS 24 Mod Money</h3>
-    <p>Football - 600MB - Unlimited Coins</p>
-    <p style="color: #4CAF50; font-weight: bold; font-size: 18px;">Bei: Tsh 1,500</p>
-    <button class="btn" onclick="nunuaGame('DLS 24', 1500, 'WEKA-LINK-YA-DLS-HAPA')">💰 Nunua Sasa</button>
-  </div>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDCcKsD13XuF8pK-Dv-VRWJSdf-a6CqYPk",
+      authDomain: "gamehub-login-381ca.firebaseapp.com",
+      projectId: "gamehub-login-381ca",
+      storageBucket: "gamehub-login-381ca.firebasestorage.app",
+      messagingSenderId: "645807432349",
+      appId: "1:645807432349:web:75e5613e0cf4fd61b32a74"
+    };
 
-  <!-- GAME 5: PPSSPP + FIFA 14 -->
-  <div class="game">
-    <img src="ppsspp.jpg" alt="PPSSPP">
-    <h3>PPSSPP + FIFA 14 Mod</h3>
-    <p>Emulator + Game - 1.5GB</p>
-    <p style="color: #4CAF50; font-weight: bold; font-size: 18px;">Bei: Tsh 2,500</p>
-    <button class="btn" onclick="nunuaGame('PPSSPP FIFA 14', 2500, 'WEKA-LINK-YA-PPSSPP-HAPA')">💰 Nunua Sasa</button>
-  </div>
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
 
-  <!-- GAME 6: CALL OF DUTY MOBILE -->
-  <div class="game">
-    <img src="codm.jpg" alt="CODM">
-    <h3>COD Mobile Mod</h3>
-    <p>Shooting - 3GB - Aimbot + Wallhack</p>
-    <p style="color: #4CAF50; font-weight: bold; font-size: 18px;">Bei: Tsh 3,500</p>
-    <button class="btn" onclick="nunuaGame('COD Mobile', 3500, 'WEKA-LINK-YA-CODM-HAPA')">💰 Nunua Sasa</button>
-  </div>
-</div>
-<!-- GAMES ZINAISHIA HAPA -->
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/Gamehub/sw.js');
-  }
-</script>
-        <script>
-// TAARIFA ZAKO ZA M-PESA
-const NAMBA_YA_MPESA = "0758079464";
-const JINA_LA_MPESA = "REHEMA JUMANNE SHOMALI";
-const WHATSAPP_NUMBER = "255758079464";
+    const authBox = document.getElementById('authBox');
+    const userBox = document.getElementById('userBox');
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
+    const authBtn = document.getElementById('authBtn');
+    const toggleForm = document.getElementById('toggleForm');
+    const formTitle = document.getElementById('formTitle');
+    const errorDiv = document.getElementById('error');
+    const userInfo = document.getElementById('userInfo');
+    const logoutBtn = document.getElementById('logoutBtn');
 
-function nunuaGame(jinaLaGame, bei, downloadLink) {
-    const ujumbe = `🔥 GAMEHUB ORDER 🔥\n\nNinataka kununua:\nGame: ${jinaLaGame}\nBei: Tsh ${bei}\n\n💰 LIPA KWA M-PESA:\nNamba: ${NAMBA_YA_MPESA}\nJina: ${JINA_LA_MPESA}\nKumbukumbu: ${jinaLaGame}\n\nBaada ya kulipa, nambie "NIMELIPA" hapa WhatsApp na screenshot.`;
-    
-    alert(`LIPA Tsh ${bei} KWA:\n\nM-PESA: ${NAMBA_YA_MPESA}\nJina: ${JINA_LA_MPESA}\nKumbuKumbu: ${jinaLaGame}\n\nBaada ya kulipa bonyeza OK uende WhatsApp`);
-    
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(ujumbe)}`, '_blank');
-}
-</script>
+    let isLogin = true;
+
+    toggleForm.onclick = () => {
+      isLogin = !isLogin;
+      formTitle.textContent = isLogin ? 'Ingia GameHub' : 'Jisajili GameHub';
+      authBtn.textContent = isLogin ? 'Ingia' : 'Jisajili';
+      toggleForm.textContent = isLogin ? 'Huna account? Jisajili' : 'Una account? Ingia';
+      errorDiv.textContent = '';
+    };
+
+    authBtn.onclick = async () => {
+      errorDiv.textContent = '';
+      try {
+        if (isLogin) {
+          await signInWithEmailAndPassword(auth, email.value, password.value);
+        } else {
+          await createUserWithEmailAndPassword(auth, email.value, password.value);
+        }
+      } catch (error) {
+        errorDiv.textContent = error.message.replace('Firebase: ', '');
+      }
+    };
+
+    logoutBtn.onclick = () => signOut(auth);
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        authBox.style.display = 'none';
+        userBox.style.display = 'block';
+        userInfo.innerHTML = `Umeingia kama: <br><b>${user.email}</b>`;
+      } else {
+        authBox.style.display = 'block';
+        userBox.style.display = 'none';
+        email.value = '';
+        password.value = '';
+      }
+    });
+  </script>
 </body>
 </html>
