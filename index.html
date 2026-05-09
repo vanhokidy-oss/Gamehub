@@ -14,7 +14,25 @@
     </style>
 </head>
 <body>
-    <h1>GameHub</h1>
+    <h1 onclick="secretAdmin()" style="cursor: pointer; user-select: none;">GameHub</h1>
+
+<script>
+let adminClicks = 0;
+function secretAdmin() {
+    adminClicks++;
+    if(adminClicks >= 5) {
+        window.location.href = '/Gamehub/admin.html';
+        adminClicks = 0;
+    }
+    // Reset kama hujamaliza clicks ndani ya sekunde 2
+    setTimeout(() => { adminClicks = 0 }, 2000);
+}
+
+// Hii ni ya kuhesabu downloads - usifute
+function countDownload(gameName) {
+  fetch(`https://api.countapi.xyz/hit/vanhokidy/${gameName}`).catch(e => {});
+}
+</script>
     <p>Games za bure, download sasa</p>
 
     <div class="game">
