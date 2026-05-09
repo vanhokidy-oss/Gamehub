@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameHub Settings</title>
+    <style>
+        body { font-family: Arial; background: #0a0a0a; color: white; padding: 20px; max-width: 600px; margin: auto; }
+        .panel { background: #1a1a1a; padding: 20px; border-radius: 12px; border: 1px solid #ff6b00; }
+        .stat-box { background: #000; padding: 15px; border-radius: 8px; margin: 10px 0; border-left: 4px solid #00e5ff; }
+        button { background: #ff6b00; color: #000; border: none; padding: 12px 20px; border-radius: 8px; font-weight: bold; width: 100%; cursor: pointer; margin-top: 10px; }
+        h2 { color: #ff6b00; }
+    </style>
+</head>
+<body>
+    <div class="panel">
+        <h2>⚙️ GameHub Settings</h2>
+        <h3>📊 Total Downloads Zote</h3>
+        <button onclick="loadStats()">Onyesha Stats</button>
+        <div id="statsOutput">Bonyeza button kuona downloads...</div>
+        <button onclick="window.location.href='/'" style="background: #666; margin-top: 30px;">Rudi GameHub</button>
+    </div>
+
+<script>
+const GAMES = ['MinecraftPE', 'AmongUs', 'PUBGMobileLite'];
+
+async function loadStats() {
+    const output = document.getElementById('statsOutput');
+    output.innerHTML = 'Inapakia...';
+    let html = '';
+    let total = 0;
+    
+    for(let game of GAMES) {
+        try {
+            const res = await fetch(`https://api.countapi.xyz/get/vanhokidy/${game}`);
+            const data = await res.json();
+            const count = data.value || 0;
+            total += count;
+            html += `<div class="stat-box"><b>${game}:</b> ${count} downloads</div>`;
+        } catch(e) {
+            html += `<div class="stat-box"><b>${game}:</b> Error</div>`;
+        }
+    }
+    html += `<div class="stat-box" style="border-left-color: #4CAF50;"><b>Jumla Zote:</b> ${total} downloads</div>`;
+    output.innerHTML = html;
+}
+</script>
+</body>
+</html>
