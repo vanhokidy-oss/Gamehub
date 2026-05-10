@@ -5,57 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GameHub</title>
   <style>
-    body { 
-      font-family: Arial; 
-      background: #0f172a; 
-      color: white; 
-      display: flex; 
-      justify-content: center; 
-      align-items: center; 
-      min-height: 100vh; 
-      margin: 0; 
-      padding: 20px;
-    }
-    .box { 
-      background: #1e293b; 
-      padding: 30px; 
-      border-radius: 12px; 
-      width: 90%; 
-      max-width: 500px; 
-      box-shadow: 0 0 20px rgba(0,0,0,0.5); 
-    }
-    h2 { 
-      text-align: center; 
-      margin-bottom: 20px; 
-      color: #38bdf8; 
-    }
-    h3 {
-      color: #f59e0b;
-      margin-top: 25px;
-      border-bottom: 1px solid #334155;
-      padding-bottom: 8px;
-    }
-    input, textarea, select { 
-      width: 100%; 
-      padding: 12px; 
-      margin: 8px 0; 
-      border: none; 
-      border-radius: 8px; 
-      background: #334155; 
-      color: white; 
-      box-sizing: border-box; 
-    }
-    button { 
-      width: 100%; 
-      padding: 12px; 
-      margin: 8px 0; 
-      border: none; 
-      border-radius: 8px; 
-      background: #38bdf8; 
-      color: #0f172a; 
-      font-weight: bold; 
-      cursor: pointer; 
-    }
+    body { font-family: Arial; background: #0f172a; color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
+    .box { background: #1e293b; padding: 30px; border-radius: 12px; width: 90%; max-width: 500px; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+    h2 { text-align: center; margin-bottom: 20px; color: #38bdf8; }
+    h3 { color: #f59e0b; margin-top: 25px; border-bottom: 1px solid #334155; padding-bottom: 8px; }
+    input, textarea, select { width: 100%; padding: 12px; margin: 8px 0; border: none; border-radius: 8px; background: #334155; color: white; box-sizing: border-box; }
+    button { width: 100%; padding: 12px; margin: 8px 0; border: none; border-radius: 8px; background: #38bdf8; color: #0f172a; font-weight: bold; cursor: pointer; }
     button:hover { background: #0ea5e9; }
     .admin-btn { background: #f59e0b !important; }
     .admin-btn:hover { background: #d97706 !important; }
@@ -63,236 +18,23 @@
     .success-btn { background: #22c55e !important; color: white !important; }
     .mpesa-btn { background: #00a651 !important; color: white !important; }
     .disabled-btn { background: #4b5563 !important; cursor: not-allowed !important; }
-    .link { 
-      text-align: center; 
-      margin-top: 15px; 
-      color: #94a3b8; 
-      cursor: pointer; 
-    }
-    #error { 
-      color: #f87171; 
-      text-align: center; 
-      margin: 10px 0; 
-      font-size: 14px; 
-    }
-    #success { 
-      color: #22c55e; 
-      text-align: center; 
-      margin: 10px 0; 
-      font-size: 14px; 
-    }
+    .link { text-align: center; margin-top: 15px; color: #94a3b8; cursor: pointer; }
+    #error { color: #f87171; text-align: center; margin: 10px 0; font-size: 14px; }
+    #success { color: #22c55e; text-align: center; margin: 10px 0; font-size: 14px; }
     #userInfo { text-align: center; margin-bottom: 20px; }
-    .badge {
-      background: #f59e0b;
-      color: #0f172a;
-      padding: 4px 8px;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: bold;
-      margin-left: 8px;
-    }
-    .coins {
-      background: #fbbf24;
-      color: #0f172a;
-      padding: 4px 8px;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: bold;
-      margin-left: 8px;
-    }
-    .user-item {
-      background: #334155;
-      padding: 10px;
-      border-radius: 8px;
-      margin: 8px 0;
-      font-size: 14px;
-    }
-    .stats {
-      display: flex;
-      gap: 10px;
-      margin: 15px 0;
-    }
-    .stat-box {
-      background: #334155;
-      padding: 15px;
-      border-radius: 8px;
-      flex: 1;
-      text-align: center;
-    }
-    .stat-number {
-      font-size: 24px;
-      font-weight: bold;
-      color: #38bdf8;
-    }
-    .game-card {
-      background: #334155;
-      padding: 15px;
-      border-radius: 8px;
-      margin: 10px 0;
-    }
-    .game-price {
-      color: #fbbf24;
-      font-weight: bold;
-      float<!DOCTYPE html>
-<html lang="sw">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GameHub</title>
-  <style>
-    body { 
-      font-family: Arial; 
-      background: #0f172a; 
-      color: white; 
-      display: flex; 
-      justify-content: center; 
-      align-items: center; 
-      min-height: 100vh; 
-      margin: 0; 
-      padding: 20px;
-    }
-    .box { 
-      background: #1e293b; 
-      padding: 30px; 
-      border-radius: 12px; 
-      width: 90%; 
-      max-width: 500px; 
-      box-shadow: 0 0 20px rgba(0,0,0,0.5); 
-    }
-    h2 { 
-      text-align: center; 
-      margin-bottom: 20px; 
-      color: #38bdf8; 
-    }
-    h3 {
-      color: #f59e0b;
-      margin-top: 25px;
-      border-bottom: 1px solid #334155;
-      padding-bottom: 8px;
-    }
-    input, textarea, select { 
-      width: 100%; 
-      padding: 12px; 
-      margin: 8px 0; 
-      border: none; 
-      border-radius: 8px; 
-      background: #334155; 
-      color: white; 
-      box-sizing: border-box; 
-    }
-    button { 
-      width: 100%; 
-      padding: 12px; 
-      margin: 8px 0; 
-      border: none; 
-      border-radius: 8px; 
-      background: #38bdf8; 
-      color: #0f172a; 
-      font-weight: bold; 
-      cursor: pointer; 
-    }
-    button:hover { background: #0ea5e9; }
-    .admin-btn { background: #f59e0b !important; }
-    .admin-btn:hover { background: #d97706 !important; }
-    .danger-btn { background: #ef4444 !important; color: white !important; }
-    .success-btn { background: #22c55e !important; color: white !important; }
-    .mpesa-btn { background: #00a651 !important; color: white !important; }
-    .disabled-btn { background: #4b5563 !important; cursor: not-allowed !important; }
-    .link { 
-      text-align: center; 
-      margin-top: 15px; 
-      color: #94a3b8; 
-      cursor: pointer; 
-    }
-    #error { 
-      color: #f87171; 
-      text-align: center; 
-      margin: 10px 0; 
-      font-size: 14px; 
-    }
-    #success { 
-      color: #22c55e; 
-      text-align: center; 
-      margin: 10px 0; 
-      font-size: 14px; 
-    }
-    #userInfo { text-align: center; margin-bottom: 20px; }
-    .badge {
-      background: #f59e0b;
-      color: #0f172a;
-      padding: 4px 8px;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: bold;
-      margin-left: 8px;
-    }
-    .coins {
-      background: #fbbf24;
-      color: #0f172a;
-      padding: 4px 8px;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: bold;
-      margin-left: 8px;
-    }
-    .user-item {
-      background: #334155;
-      padding: 10px;
-      border-radius: 8px;
-      margin: 8px 0;
-      font-size: 14px;
-    }
-    .stats {
-      display: flex;
-      gap: 10px;
-      margin: 15px 0;
-    }
-    .stat-box {
-      background: #334155;
-      padding: 15px;
-      border-radius: 8px;
-      flex: 1;
-      text-align: center;
-    }
-    .stat-number {
-      font-size: 24px;
-      font-weight: bold;
-      color: #38bdf8;
-    }
-    .game-card {
-      background: #334155;
-      padding: 15px;
-      border-radius: 8px;
-      margin: 10px 0;
-    }
-    .game-price {
-      color: #fbbf24;
-      font-weight: bold;
-      float: right;
-    }
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.7);
-      justify-content: center;
-      align-items: center;
-    }
-    .topup-item {
-      background: #334155;
-      padding: 10px;
-      border-radius: 8px;
-      margin: 8px 0;
-      border-left: 3px solid #f59e0b;
-    }
+    .badge { background: #f59e0b; color: #0f172a; padding: 4px 8px; border-radius: 6px; font-size: 12px; font-weight: bold; margin-left: 8px; }
+    .coins { background: #fbbf24; color: #0f172a; padding: 4px 8px; border-radius: 6px; font-size: 12px; font-weight: bold; margin-left: 8px; }
+    .user-item { background: #334155; padding: 10px; border-radius: 8px; margin: 8px 0; font-size: 14px; }
+    .stats { display: flex; gap: 10px; margin: 15px 0; }
+    .stat-box { background: #334155; padding: 15px; border-radius: 8px; flex: 1; text-align: center; }
+    .stat-number { font-size: 24px; font-weight: bold; color: #38bdf8; }
+    .game-card { background: #334155; padding: 15px; border-radius: 8px; margin: 10px 0; }
+    .game-price { color: #fbbf24; font-weight: bold; float: right; }
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; z-index: 9999; }
+    .topup-item { background: #334155; padding: 10px; border-radius: 8px; margin: 8px 0; border-left: 3px solid #f59e0b; }
   </style>
 </head>
 <body>
-
-  <!-- LOGIN BOX -->
   <div class="box" id="authBox">
     <h2 id="formTitle">Ingia GameHub</h2>
     <div id="error"></div>
@@ -301,8 +43,6 @@
     <button id="authBtn">Ingia</button>
     <div class="link" id="toggleForm">Huna account? Jisajili</div>
   </div>
-
-  <!-- USER HOME BOX -->
   <div class="box" id="userBox" style="display:none;">
     <h2>Karibu GameHub!</h2>
     <div id="userInfo"></div>
@@ -311,41 +51,24 @@
     <div id="gamesList"></div>
     <button id="logoutBtn">Toka</button>
   </div>
-
-  <!-- ADMIN PANEL BOX -->
   <div class="box" id="adminBox" style="display:none;">
     <h2>Admin Panel 👑</h2>
     <div id="success"></div>
-    
     <h3>Takwimu</h3>
     <div class="stats">
-      <div class="stat-box">
-        <div class="stat-number" id="totalUsers">0</div>
-        <div>Users</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-number" id="totalGames">0</div>
-        <div>Games</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-number" id="totalTopups">0</div>
-        <div>Maombi</div>
-      </div>
+      <div class="stat-box"><div class="stat-number" id="totalUsers">0</div><div>Users</div></div>
+      <div class="stat-box"><div class="stat-number" id="totalGames">0</div><div>Games</div></div>
+      <div class="stat-box"><div class="stat-number" id="totalTopups">0</div><div>Maombi</div></div>
     </div>
-
     <h3>Maombi ya Top-Up M-Pesa</h3>
     <div id="topupList">Hakuna maombi</div>
-
     <h3>Orodha ya Users</h3>
     <div id="usersList">Inapakia...</div>
-
     <h3>Actions</h3>
     <button id="showAddGameBtn" class="success-btn">Ongeza Game Mpya</button>
     <button id="backHomeBtn">Rudi Nyumbani</button>
     <button id="logoutAdminBtn" class="danger-btn">Toka</button>
   </div>
-
-  <!-- ADD GAME MODAL -->
   <div class="modal" id="addGameModal">
     <div class="box">
       <h2>Ongeza Game Mpya</h2>
@@ -357,9 +80,6 @@
       <button id="saveGameBtn" class="success-btn">Hifadhi Game</button>
       <button id="cancelGameBtn" class="danger-btn">Funga</button>
     </div>
-  </div>
-
-  <!-- BUY COINS MODAL -->
   <div class="modal" id="buyCoinsModal">
     <div class="box">
       <h2>Nunua Coins M-Pesa</h2>
@@ -377,47 +97,38 @@
       <button id="cancelTopupBtn" class="danger-btn">Funga</button>
     </div>
   </div>
-
   <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
     import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
     import { getFirestore, collection, addDoc, getDocs, setDoc, doc, onSnapshot, updateDoc, getDoc, query, where } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyDCcKsD13XuF8pK-Dv-VRWJSdf-a6CqYPk",
-      authDomain: "gamehub-login-381ca.firebaseapp.com",
-      projectId: "gamehub-login-381ca",
-      storageBucket: "gamehub-login-381ca.firebasestorage.app",
-      messagingSenderId: "645807432349",
-      appId: "1:645807432349:web:75e5613e0cf4fd61b32a74"
-    };
-
+    const firebaseConfig = { apiKey: "AIzaSyDCcKsD13XuF8pK-Dv-VRWJSdf-a6CqYPk", authDomain: "gamehub-login-381ca.firebaseapp.com", projectId: "gamehub-login-381ca", storageBucket: "gamehub-login-381ca.firebasestorage.app", messagingSenderId: "645807432349", appId: "1:645807432349:web:75e5613e0cf4fd61b32a74" };
     const ADMIN_EMAIL = "vanhokidy@gmail.com";
     const MPESA_NUMBER = "0758079464"; // BADILISHA HII WEKA NAMBA YAKO
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getFirestore(app);
-
-    // Elements
-    const authBox = document.getElementById('authBox');
-    const userBox = document.getElementById('userBox');
-    const adminBox = document.getElementById('adminBox');
-    const email = document.getElementById('email');
-    const password = document.getElementById('password');
-    const authBtn = document.getElementById('authBtn');
-    const toggleForm = document.getElementById('toggleForm');
-    const formTitle = document.getElementById('formTitle');
-    const errorDiv = document.getElementById('error');
-    const successDiv = document.getElementById('success');
-    const userInfo = document.getElementById('userInfo');
-    const logoutBtn = document.getElementById('logoutBtn');
-    const adminBtn = document.getElementById('adminBtn');
-    const buyCoinsBtn = document.getElementById('buyCoinsBtn');
-    const backHomeBtn = document.getElementById('backHomeBtn');
-    const logoutAdminBtn = document.getElementById('logoutAdminBtn');
-    const showAddGameBtn = document.getElementById('showAddGameBtn');
-    const addGameModal = document.getElementById('addGameModal');
-    const buyCoinsModal = document.getElementById('buyCoinsModal');
-    const saveGameBtn = document.getElementById('saveGameBtn');
-    const cancelGameBtn = document.getElementById('cancelGameBtn');
-    const requestTopupBtn = document.get
+    const authBox = document.getElementById('authBox'); const userBox = document.getElementById('userBox'); const adminBox = document.getElementById('adminBox'); const email = document.getElementById('email'); const password = document.getElementById('password'); const authBtn = document.getElementById('authBtn'); const toggleForm = document.getElementById('toggleForm'); const formTitle = document.getElementById('formTitle'); const errorDiv = document.getElementById('error'); const successDiv = document.getElementById('success'); const userInfo = document.getElementById('userInfo'); const logoutBtn = document.getElementById('logoutBtn'); const adminBtn = document.getElementById('adminBtn'); const buyCoinsBtn = document.getElementById('buyCoinsBtn'); const backHomeBtn = document.getElementById('backHomeBtn'); const logoutAdminBtn = document.getElementById('logoutAdminBtn'); const showAddGameBtn = document.getElementById('showAddGameBtn'); const addGameModal = document.getElementById('addGameModal'); const buyCoinsModal = document.getElementById('buyCoinsModal'); const saveGameBtn = document.getElementById('saveGameBtn'); const cancelGameBtn = document.getElementById('cancelGameBtn'); const requestTopupBtn = document.getElementById('requestTopupBtn'); const cancelTopupBtn = document.getElementById('cancelTopupBtn'); const gameError = document.getElementById('gameError'); const topupError = document.getElementById('topupError'); const usersList = document.getElementById('usersList'); const gamesList = document.getElementById('gamesList'); const topupList = document.getElementById('topupList'); const totalUsers = document.getElementById('totalUsers'); const totalGames = document.getElementById('totalGames'); const totalTopups = document.getElementById('totalTopups'); const mpesaNumberSpan = document.getElementById('mpesaNumber');
+    let isLogin = true; let currentUserData = null;
+    mpesaNumberSpan.textContent = MPESA_NUMBER;
+    toggleForm.onclick = () => { isLogin = !isLogin; formTitle.textContent = isLogin ? 'Ingia GameHub' : 'Jisajili GameHub'; authBtn.textContent = isLogin ? 'Ingia' : 'Jisajili'; toggleForm.textContent = isLogin ? 'Huna account? Jisajili' : 'Una account? Ingia'; errorDiv.textContent = ''; };
+    authBtn.onclick = async () => { errorDiv.textContent = ''; try { let userCredential; if (isLogin) { userCredential = await signInWithEmailAndPassword(auth, email.value, password.value); } else { userCredential = await createUserWithEmailAndPassword(auth, email.value, password.value); await setDoc(doc(db, "users", userCredential.user.uid), { email: userCredential.user.email, createdAt: new Date(), isAdmin: userCredential.user.email === ADMIN_EMAIL, coins: 50 }); } } catch (error) { errorDiv.textContent = error.message.replace('Firebase: ', ''); } };
+    logoutBtn.onclick = () => signOut(auth); logoutAdminBtn.onclick = () => signOut(auth);
+    adminBtn.onclick = () => { userBox.style.display = 'none'; adminBox.style.display = 'block'; loadUsers(); loadGamesAdmin(); loadTopups(); };
+    backHomeBtn.onclick = () => { adminBox.style.display = 'none'; userBox.style.display = 'block'; };
+    showAddGameBtn.onclick = () => { addGameModal.style.display = 'flex'; buyCoinsModal.style.display = 'none'; };
+    cancelGameBtn.onclick = () => addGameModal.style.display = 'none';
+    buyCoinsBtn.onclick = () => { buyCoinsModal.style.display = 'flex'; addGameModal.style.display = 'none'; };
+    cancelTopupBtn.onclick = () => buyCoinsModal.style.display = 'none';
+    saveGameBtn.onclick = async () => { const name = document.getElementById('gameName').value; const url = document.getElementById('gameUrl').value; const desc = document.getElementById('gameDesc').value; const price = parseInt(document.getElementById('gamePrice').value) || 0; gameError.textContent = ''; if (!name || !url) { gameError.textContent = 'Jina na Link ni lazima'; return; } try { await addDoc(collection(db, "games"), { name: name, url: url, description: desc, price: price, createdAt: new Date() }); successDiv.textContent = 'Game imehifadhiwa!'; addGameModal.style.display = 'none'; document.getElementById('gameName').value = ''; document.getElementById('gameUrl').value = ''; document.getElementById('gameDesc').value = ''; document.getElementById('gamePrice').value = ''; setTimeout(() => successDiv.textContent = '', 3000); } catch (error) { gameError.textContent = 'Imeshindikana: ' + error.message; } };
+    requestTopupBtn.onclick = async () => { const coins = parseInt(document.getElementById('coinAmount').value); const code = document.getElementById('mpesaCode').value; topupError.textContent = ''; if (!code || code.length < 5) { topupError.textContent = 'Weka namba sahihi ya Muamala M-Pesa'; return; } try { await addDoc(collection(db, "topups"), { userId: auth.currentUser.uid, email: auth.currentUser.email, coins: coins, amount: coins * 10, mpesaCode: code, status: 'pending', createdAt: new Date() }); buyCoinsModal.style.display = 'none'; alert('Ombi limetumwa! Admin atakuongezea coins ndani ya dakika chache baada ya kuthibitisha malipo'); document.getElementById('mpesaCode').value = ''; } catch (error) { topupError.textContent = 'Imeshindikana: ' + error.message; } };
+    window.approveTopup = async (topupId, userId, coins) => { try { const userRef = doc(db, "users", userId); const userDoc = await getDoc(userRef); const newCoins = (userDoc.data().coins || 0) + coins; await updateDoc(userRef, { coins: newCoins }); await updateDoc(doc(db, "topups", topupId), { status: 'approved' }); alert('Coins zimeongezwa!'); } catch (error) { alert('Imeshindikana: ' + error.message); } };
+    async function loadUsers() { const querySnapshot = await getDocs(collection(db, "users")); usersList.innerHTML = ''; totalUsers.textContent = querySnapshot.size; querySnapshot.forEach((doc) => { const user = doc.data(); usersList.innerHTML += `<div class="user-item"><div>${user.email} ${user.isAdmin ? '<span class="badge">ADMIN</span>' : ''}</div><div><span class="coins">${user.coins || 0} Coins</span></div></div>`; }); }
+    function loadTopups() { const q = query(collection(db, "topups"), where("status", "==", "pending")); onSnapshot(q, (snapshot) => { topupList.innerHTML = ''; totalTopups.textContent = snapshot.size; if (snapshot.empty) { topupList.innerHTML = 'Hakuna maombi mapya'; return; } snapshot.forEach((doc) => { const topup = doc.data(); topupList.innerHTML += `<div class="topup-item"><b>${topup.email}</b><br>Anaomba: ${topup.coins} Coins (Tsh ${topup.amount})<br>Muamala: ${topup.mpesaCode}<br><button onclick="approveTopup('${doc.id}', '${topup.userId}', ${topup.coins})" class="success-btn" style="margin-top:8px;">Thibitisha & Ongeza Coins</button></div>`; }); }); }
+    async function loadGamesAdmin() { const querySnapshot = await getDocs(collection(db, "games")); totalGames.textContent = querySnapshot.size; }
+    window.playGame = async (gameId, gameUrl, price) => { if (!currentUserData) return; if (currentUserData.coins < price) { alert('Huna coins za kutosha! Nunua coins kwanza'); return; } if (price > 0) { const userRef = doc(db, "users", auth.currentUser.uid); await updateDoc(userRef, { coins: currentUserData.coins - price }); } window.open(gameUrl, '_blank'); };
+    function updateUserInfo() { if (auth.currentUser.email === ADMIN_EMAIL) { userInfo.innerHTML = `Umeingia kama: <br><b>${auth.currentUser.email}</b> <span class="badge">ADMIN</span> <span class="coins">${currentUserData.coins} Coins</span>`; adminBtn.style.display = 'block'; } else { userInfo.innerHTML = `Umeingia kama: <br><b>${auth.currentUser.email}</b> <span class="coins">${currentUserData.coins} Coins</span>`; adminBtn.style.display = 'none'; } }
+    function loadGamesUser() { onSnapshot(collection(db, "games"), (snapshot) => { gamesList.innerHTML = '<h3>Games Zilizopo</h3>'; totalGames.textContent = snapshot.size; if (snapshot.empty) { gamesList.innerHTML += '<p style="text-align:center;color:#94a3b8;">Games zinakuja hapa...</p>'; return; } snapshot.forEach((doc) => { const game = doc.data(); const canAfford = currentUserData.coins >= game.price; gamesList.innerHTML += `<div class="game-card"><h4>${game.name} <span class="game-price">${game.price > 0 ? game.price + ' Coins' : 'BURE'}</span></h4><p>${game.description}</p><button onclick="playGame('${doc.id}', '${game.url}', ${game.price})" class="${!canAfford && game.price > 0 ? 'disabled-btn' : ''}" ${!canAfford && game.price > 0 ? 'disabled' : ''}>${game.price > 0 ? (canAfford ? 'Cheza Sasa' : 'Huna Coins') : 'Cheza Sasa'}</button></div>`; }); }); }
+    onAuthStateChanged(auth, (user) => { if (user) { authBox.style.display = 'none'; adminBox.style.display = 'none'; userBox.style.display = 'block'; onSnapshot(doc(db, "users", user.uid), (doc) => { currentUserData = doc.data(); if (currentUserData) { updateUserInfo(); loadGamesUser(); } }); } else { authBox.style.display = 'block'; userBox.style.display = 'none'; adminBox.style.display = 'none'; email.value = ''; password.value = ''; currentUserData = null; } });
+  </script>
+</body>
+</html>
