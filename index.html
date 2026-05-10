@@ -35,7 +35,7 @@
       border-bottom: 1px solid #334155;
       padding-bottom: 8px;
     }
-    input { 
+    input, textarea { 
       width: 100%; 
       padding: 12px; 
       margin: 8px 0; 
@@ -60,7 +60,7 @@
     .admin-btn { background: #f59e0b !important; }
     .admin-btn:hover { background: #d97706 !important; }
     .danger-btn { background: #ef4444 !important; color: white !important; }
-    .danger-btn:hover { background: #dc2626 !important; }
+    .success-btn { background: #22c55e !important; color: white !important; }
     .link { 
       text-align: center; 
       margin-top: 15px; 
@@ -73,197 +73,7 @@
       margin: 10px 0; 
       font-size: 14px; 
     }
-    #userInfo { text-align: center; margin-bottom: 20px; }
-    .badge {
-      background: #f59e0b;
-      color: #0f172a;
-      padding: 4px 8px;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: bold;
-      margin-left: 8px;
-    }
-    .user-item {
-      background: #334155;
-      padding: 10px;
-      border-radius: 8px;
-      margin: 8px 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .stats {
-      display: flex;
-      gap: 10px;
-      margin: 15px 0;
-    }
-    .stat-box {
-      background: #334155;
-      padding: 15px;
-      border-radius: 8px;
-      flex: 1;
-      text-align: center;
-    }
-    .stat-number {
-      font-size: 24px;
-      font-weight: bold;
-      color: #38bdf8;
-    }
-  </style>
-</head>
-<body>
-
-  <!-- LOGIN BOX -->
-  <div class="box" id="authBox">
-    <h2 id="formTitle">Ingia GameHub</h2>
-    <div id="error"></div>
-    <input type="email" id="email" placeholder="Email yako">
-    <input type="password" id="password" placeholder="Password">
-    <button id="authBtn">Ingia</button>
-    <div class="link" id="toggleForm">Huna account? Jisajili</div>
-  </div>
-
-  <!-- USER HOME BOX -->
-  <div class="box" id="userBox" style="display:none;">
-    <h2>Karibu GameHub!</h2>
-    <div id="userInfo"></div>
-    <button id="adminBtn" class="admin-btn" style="display:none;">Fungua Admin Panel</button>
-    <button id="logoutBtn">Toka</button>
-    <p style="text-align:center;margin-top:20px;color:#94a3b8;">Games zinakuja hapa...</p>
-  </div>
-
-  <!-- ADMIN PANEL BOX -->
-  <div class="box" id="adminBox" style="display:none;">
-    <h2>Admin Panel 👑</h2>
-    
-    <h3>Takwimu</h3>
-    <div class="stats">
-      <div class="stat-box">
-        <div class="stat-number" id="totalUsers">1</div>
-        <div>Users</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-number" id="totalGames">0</div>
-        <div>Games</div>
-      </div>
-    </div>
-
-    <h3>Orodha ya Users</h3>
-    <div id="usersList">
-      <div class="user-item">
-        <span>vanhokidy@gmail.com <span class="badge">ADMIN</span></span>
-      </div>
-    </div>
-
-    <h3>Actions</h3>
-    <button id="addGameBtn">Ongeza Game Mpya</button>
-    <button id="backHomeBtn">Rudi Nyumbani</button>
-    <button id="logoutAdminBtn" class="danger-btn">Toka</button>
-  </div>
-
-  <script type="module">
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyDCcKsD13XuF8pK-Dv-VRWJSdf-a6CqYPk",
-      authDomain: "gamehub-login-381ca.firebaseapp.com",
-      projectId: "gamehub-login-381ca",
-      storageBucket: "gamehub-login-381ca.firebasestorage.app",
-      messagingSenderId: "645807432349",
-      appId: "1:645807432349:web:75e5613e0cf4fd61b32a74"
-    };
-
-    const ADMIN_EMAIL = "vanhokidy@gmail.com";
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    // Elements
-    const authBox = document.getElementById('authBox');
-    const userBox = document.getElementById('userBox');
-    const adminBox = document.getElementById('adminBox');
-    const email = document.getElementById('email');
-    const password = document.getElementById('password');
-    const authBtn = document.getElementById('authBtn');
-    const toggleForm = document.getElementById('toggleForm');
-    const formTitle = document.getElementById('formTitle');
-    const errorDiv = document.getElementById('error');
-    const userInfo = document.getElementById('userInfo');
-    const logoutBtn = document.getElementById('logoutBtn');
-    const adminBtn = document.getElementById('adminBtn');
-    const addGameBtn = document.getElementById('addGameBtn');
-    const backHomeBtn = document.getElementById('backHomeBtn');
-    const logoutAdminBtn = document.getElementById('logoutAdminBtn');
-
-    let isLogin = true;
-
-    // Toggle Login/Register
-    toggleForm.onclick = () => {
-      isLogin = !isLogin;
-      formTitle.textContent = isLogin ? 'Ingia GameHub' : 'Jisajili GameHub';
-      authBtn.textContent = isLogin ? 'Ingia' : 'Jisajili';
-      toggleForm.textContent = isLogin ? 'Huna account? Jisajili' : 'Una account? Ingia';
-      errorDiv.textContent = '';
-    };
-
-    // Login/Register
-    authBtn.onclick = async () => {
-      errorDiv.textContent = '';
-      try {
-        if (isLogin) {
-          await signInWithEmailAndPassword(auth, email.value, password.value);
-        } else {
-          await createUserWithEmailAndPassword(auth, email.value, password.value);
-        }
-      } catch (error) {
-        errorDiv.textContent = error.message.replace('Firebase: ', '');
-      }
-    };
-
-    // Logout
-    logoutBtn.onclick = () => signOut(auth);
-    logoutAdminBtn.onclick = () => signOut(auth);
-
-    // Fungua Admin Panel
-    adminBtn.onclick = () => {
-      userBox.style.display = 'none';
-      adminBox.style.display = 'block';
-    };
-
-    // Rudi Nyumbani
-    backHomeBtn.onclick = () => {
-      adminBox.style.display = 'none';
-      userBox.style.display = 'block';
-    };
-
-    // Ongeza Game - kwa sasa alert tu
-    addGameBtn.onclick = () => {
-      alert('Hapa tutaweka form ya kuongeza game mpya. Next step tutaunganisha na Firestore kuhifadhi games.');
-    };
-
-    // Check user status
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        authBox.style.display = 'none';
-        adminBox.style.display = 'none';
-        userBox.style.display = 'block';
-        
-        if (user.email === ADMIN_EMAIL) {
-          userInfo.innerHTML = `Umeingia kama: <br><b>${user.email}</b> <span class="badge">ADMIN</span>`;
-          adminBtn.style.display = 'block';
-        } else {
-          userInfo.innerHTML = `Umeingia kama: <br><b>${user.email}</b>`;
-          adminBtn.style.display = 'none';
-        }
-        
-      } else {
-        authBox.style.display = 'block';
-        userBox.style.display = 'none';
-        adminBox.style.display = 'none';
-        email.value = '';
-        password.value = '';
-      }
-    });
-  </script>
-</body>
-</html>
+    #success { 
+      color: #22c55e; 
+      text-align: center; 
+      margin: 
