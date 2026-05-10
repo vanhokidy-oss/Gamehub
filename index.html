@@ -76,4 +76,328 @@
     #success { 
       color: #22c55e; 
       text-align: center; 
-      margin: 
+      margin: 10px 0; 
+      font-size: 14px; 
+    }
+    #userInfo { text-align: center; margin-bottom: 20px; }
+    .badge {
+      background: #f59e0b;
+      color: #0f172a;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-left: 8px;
+    }
+    .user-item {
+      background: #334155;
+      padding: 10px;
+      border-radius: 8px;
+      margin: 8px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+    }
+    .stats {
+      display: flex;
+      gap: 10px;
+      margin: 15px 0;
+    }
+    .stat-box {
+      background: #334155;
+      padding: 15px;
+      border-radius: 8px;
+      flex: 1;
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 24px;
+      font-weight: bold;
+      color: #38bdf8;
+    }
+    .game-card {
+      background: #334155;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 10px 0;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN BOX -->
+  <div class="box" id="authBox">
+    <h2 id="formTitle">Ingia GameHub</h2>
+    <div id="error"></div>
+    <input type="email" id="email" placeholder="Email yako">
+    <input type="password" id="password" placeholder="Password">
+    <button id="authBtn">Ingia</button>
+    <div class="link" id="toggleForm">Huna account? Jisajili</div>
+  </div>
+
+  <!-- USER HOME BOX -->
+  <div class="box" id="userBox" style="display:none;">
+    <h2>Karibu GameHub!</h2>
+    <div id="userInfo"></div>
+    <button id="adminBtn" class="admin-btn" style="display:none;">Fungua Admin Panel</button>
+    <div id="gamesList"></div>
+    <button id="logoutBtn">Toka</button>
+  </div>
+
+  <!-- ADMIN PANEL BOX -->
+  <div class="box" id="adminBox" style="display:none;">
+    <h2>Admin Panel 👑</h2>
+    <div id="success"></div>
+    
+    <h3>Takwimu</h3>
+    <div class="stats">
+      <div class="stat-box">
+        <div class="stat-number" id="totalUsers">0</div>
+        <div>Users</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number" id="totalGames">0</div>
+        <div>Games</div>
+      </div>
+    </div>
+
+    <h3>Orodha ya Users</h3>
+    <div id="usersList">Inapakia...</div>
+
+    <h3>Actions</h3>
+    <button id="showAddGameBtn" class="success-btn">Ongeza Game Mpya</button>
+    <button id="backHomeBtn">Rudi Nyumbani</button>
+    <button id="logoutAdminBtn" class="danger-btn">Toka</button>
+  </div>
+
+  <!-- ADD GAME MODAL -->
+  <div class="modal" id="addGameModal">
+    <div class="box">
+      <h2>Ongeza Game Mpya</h2>
+      <div id="gameError"></div>
+      <input type="text" id="gameName" placeholder="Jina la Game">
+      <input type="text" id="gameUrl" placeholder="Link ya Game. Mfano: https://...">
+      <textarea id="gameDesc" placeholder="Maelezo mafupi" rows="3"></textarea>
+      <button id="saveGameBtn" class="success-btn">Hifadhi Game</button>
+      <button id="cancelGameBtn" class="danger-btn">Funga</button>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+    import { getFirestore, collection, addDoc, getDocs, setDoc, doc, onSnapshot } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDCcKsD13XuF8pK-Dv-VRWJSdf-a6CqYPk",
+      authDomain: "gamehub-login-381ca.firebaseapp.com",
+      projectId: "gamehub-login-381ca",
+      storageBucket: "gamehub-login-381ca.firebasestorage.app",
+      messagingSenderId: "645807432349",
+      appId: "1:645807432349:web:75e5613e0cf4fd61b32a74"
+    };
+
+    const ADMIN_EMAIL = "vanhokidy@gmail.com";
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // Elements
+    const authBox = document.getElementById('authBox');
+    const userBox = document.getElementById('userBox');
+    const adminBox = document.getElementById('adminBox');
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
+    const authBtn = document.getElementById('authBtn');
+    const toggleForm = document.getElementById('toggleForm');
+    const formTitle = document.getElementById('formTitle');
+    const errorDiv = document.getElementById('error');
+    const successDiv = document.getElementById('success');
+    const userInfo = document.getElementById('userInfo');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const adminBtn = document.getElementById('adminBtn');
+    const backHomeBtn = document.getElementById('backHomeBtn');
+    const logoutAdminBtn = document.getElementById('logoutAdminBtn');
+    const showAddGameBtn = document.getElementById('showAddGameBtn');
+    const addGameModal = document.getElementById('addGameModal');
+    const saveGameBtn = document.getElementById('saveGameBtn');
+    const cancelGameBtn = document.getElementById('cancelGameBtn');
+    const gameError = document.getElementById('gameError');
+    const usersList = document.getElementById('usersList');
+    const gamesList = document.getElementById('gamesList');
+    const totalUsers = document.getElementById('totalUsers');
+    const totalGames = document.getElementById('totalGames');
+
+    let isLogin = true;
+
+    // Toggle Login/Register
+    toggleForm.onclick = () => {
+      isLogin = !isLogin;
+      formTitle.textContent = isLogin ? 'Ingia GameHub' : 'Jisajili GameHub';
+      authBtn.textContent = isLogin ? 'Ingia' : 'Jisajili';
+      toggleForm.textContent = isLogin ? 'Huna account? Jisajili' : 'Una account? Ingia';
+      errorDiv.textContent = '';
+    };
+
+    // Login/Register + Hifadhi user Firestore
+    authBtn.onclick = async () => {
+      errorDiv.textContent = '';
+      try {
+        let userCredential;
+        if (isLogin) {
+          userCredential = await signInWithEmailAndPassword(auth, email.value, password.value);
+        } else {
+          userCredential = await createUserWithEmailAndPassword(auth, email.value, password.value);
+          // Hifadhi user mpya Firestore
+          await setDoc(doc(db, "users", userCredential.user.uid), {
+            email: userCredential.user.email,
+            createdAt: new Date(),
+            isAdmin: userCredential.user.email === ADMIN_EMAIL
+          });
+        }
+      } catch (error) {
+        errorDiv.textContent = error.message.replace('Firebase: ', '');
+      }
+    };
+
+    // Logout
+    logoutBtn.onclick = () => signOut(auth);
+    logoutAdminBtn.onclick = () => signOut(auth);
+
+    // Fungua Admin Panel
+    adminBtn.onclick = () => {
+      userBox.style.display = 'none';
+      adminBox.style.display = 'block';
+      loadUsers();
+      loadGamesAdmin();
+    };
+
+    // Rudi Nyumbani
+    backHomeBtn.onclick = () => {
+      adminBox.style.display = 'none';
+      userBox.style.display = 'block';
+    };
+
+    // Onyesha Modal ya Kuongeza Game
+    showAddGameBtn.onclick = () => {
+      addGameModal.style.display = 'flex';
+    };
+
+    cancelGameBtn.onclick = () => {
+      addGameModal.style.display = 'none';
+      gameError.textContent = '';
+    };
+
+    // Hifadhi Game Firestore
+    saveGameBtn.onclick = async () => {
+      const name = document.getElementById('gameName').value;
+      const url = document.getElementById('gameUrl').value;
+      const desc = document.getElementById('gameDesc').value;
+      gameError.textContent = '';
+
+      if (!name || !url) {
+        gameError.textContent = 'Jina na Link ni lazima';
+        return;
+      }
+
+      try {
+        await addDoc(collection(db, "games"), {
+          name: name,
+          url: url,
+          description: desc,
+          createdAt: new Date()
+        });
+        successDiv.textContent = 'Game imehifadhiwa!';
+        addGameModal.style.display = 'none';
+        document.getElementById('gameName').value = '';
+        document.getElementById('gameUrl').value = '';
+        document.getElementById('gameDesc').value = '';
+        setTimeout(() => successDiv.textContent = '', 3000);
+        loadGamesAdmin();
+      } catch (error) {
+        gameError.textContent = 'Imeshindikana: ' + error.message;
+      }
+    };
+
+    // Pakia Users kutoka Firestore
+    async function loadUsers() {
+      const querySnapshot = await getDocs(collection(db, "users"));
+      usersList.innerHTML = '';
+      totalUsers.textContent = querySnapshot.size;
+      querySnapshot.forEach((doc) => {
+        const user = doc.data();
+        usersList.innerHTML += `
+          <div class="user-item">
+            <span>${user.email} ${user.isAdmin ? '<span class="badge">ADMIN</span>' : ''}</span>
+          </div>
+        `;
+      });
+    }
+
+    // Pakia Games kwa Admin
+    async function loadGamesAdmin() {
+      const querySnapshot = await getDocs(collection(db, "games"));
+      totalGames.textContent = querySnapshot.size;
+    }
+
+    // Pakia Games kwa Users
+    function loadGamesUser() {
+      onSnapshot(collection(db, "games"), (snapshot) => {
+        gamesList.innerHTML = '<h3>Games Zilizopo</h3>';
+        totalGames.textContent = snapshot.size;
+        if (snapshot.empty) {
+          gamesList.innerHTML += '<p style="text-align:center;color:#94a3b8;">Games zinakuja hapa...</p>';
+          return;
+        }
+        snapshot.forEach((doc) => {
+          const game = doc.data();
+          gamesList.innerHTML += `
+            <div class="game-card">
+              <h4>${game.name}</h4>
+              <p>${game.description}</p>
+              <button onclick="window.open('${game.url}', '_blank')">Cheza Sasa</button>
+            </div>
+          `;
+        });
+      });
+    }
+
+    // Check user status
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        authBox.style.display = 'none';
+        adminBox.style.display = 'none';
+        userBox.style.display = 'block';
+        loadGamesUser();
+        
+        if (user.email === ADMIN_EMAIL) {
+          userInfo.innerHTML = `Umeingia kama: <br><b>${user.email}</b> <span class="badge">ADMIN</span>`;
+          adminBtn.style.display = 'block';
+        } else {
+          userInfo.innerHTML = `Umeingia kama: <br><b>${user.email}</b>`;
+          adminBtn.style.display = 'none';
+        }
+        
+      } else {
+        authBox.style.display = 'block';
+        userBox.style.display = 'none';
+        adminBox.style.display = 'none';
+        email.value = '';
+        password.value = '';
+      }
+    });
+  </script>
+</body>
+</html>
